@@ -3,15 +3,15 @@
 \*------------------------------------*/
 
 @font-face {
-    font-family: "Inter Web";
+    font-family: 'Inter Web';
     font-weight: 400;
-    src: url("../fonts/Inter-Regular.woff2") format("woff2")
+    src: url('../fonts/Inter-Regular.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: "Inter Web";
+    font-family: 'Inter Web';
     font-weight: 600;
-    src: url("../fonts/Inter-SemiBold.woff2") format("woff2")
+    src: url('../fonts/Inter-SemiBold.woff2') format('woff2');
 }
 
 /*------------------------------------*\
@@ -20,15 +20,15 @@
 
 :root {
     /* colors */
-    --global-color-alpha-light: #4F95FF;
-    --global-color-alpha: #3385FF;
-    --global-color-alpha-dark: #2E77E6;
-    --global-color-alpha-x-dark: #1B4186;
+    --global-color-alpha-light: #4f95ff;
+    --global-color-alpha: #3385ff;
+    --global-color-alpha-dark: #2e77e6;
+    --global-color-alpha-x-dark: #1b4186;
     --global-color-alpha-transparent: #3385ffbf;
     --global-color-alpha-x-transparent: #3385ff4d;
 
-    --global-color-neutral-xxxx-light: #F5F6FA;
-    --global-color-neutral-xxx-light: #E2E3E7;
+    --global-color-neutral-xxxx-light: #f5f6fa;
+    --global-color-neutral-xxx-light: #e2e3e7;
     --global-color-neutral-xx-light: #caccd4;
     --global-color-neutral-x-light: #b5b6c0;
     --global-color-neutral-light: #a0a1ad;
@@ -38,16 +38,19 @@
     --global-color-neutral-xx-dark: #4b4c60;
     --global-color-neutral-xxx-dark: #35374d;
     --global-color-neutral-xxxx-dark: #20223a;
+    --global-color-neutral-xxxxx-dark: rgba(0, 0, 0, 0.55);
+    --global-page-color: var(--color-neutral-xxxx-dark);
+    --global-page-backgroundColor: var(--color-neutral-xxxx-light);
 
     /* border stuff */
     --global-borderRadius: 3px;
     --global-borderWidth: 1px;
 
     /* transitions */
-    --global-transitionTiming-alpha: .1s ease-out;
+    --global-transitionTiming-alpha: 0.1s ease-out;
 
     /* Baseline settings */
-    --global-baseline: 8px;         
+    --global-baseline: 8px;
     --global-whitespace: calc(var(--global-baseline) * 3); /* = 24px */
 
     --global-whitespace-xs: calc(var(--global-baseline) / 2); /* = 4px */
@@ -56,6 +59,14 @@
     --global-whitespace-lg: calc(var(--global-baseline) * 4); /*  = 32px */
     --global-whitespace-xl: calc(var(--global-whitespace) * 2); /*  = 48px */
     --global-whitespace-xxl: calc(var(--global-whitespace) * 3); /*  = 72px */
+
+    --global-input-backgroundColor: White;
+    --global-input-color: var(--global-color-neutral-xxxx-dark);
+    --global-input-borderColor: var(--global-color-neutral-xxx-light);
+    --global-input-hover-borderColor: var(--global-color-neutral-xx-light);
+    --global-input-focus-borderColor: var(--global-color-alpha);
+    --global-input-boxShadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+    --global-input-toggle-boxShadow: 0px 0px 3px 0px var(--global-color-neutral-xxxxx-dark);
 }
 
 /*------------------------------------*\
@@ -71,12 +82,12 @@
 html {
     font-size: 16px;
     line-height: 1.5;
-    font-family: "Inter Web", Helvetica, arial, sans-serif;
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: var(--global-color-neutral-xxxx-light);
+    font-family: 'Inter Web', Helvetica, arial, sans-serif;
+    color: var(--global-page-color);
+    background-color: var(--global-page-backgroundColor);
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;    
+    -moz-osx-font-smoothing: grayscale;
 }
 
 *,
@@ -514,15 +525,15 @@ input::placeholder {
 }
 
 .c-logo__path--1 {
-    fill: var(--global-color-neutral-xxxx-dark);
+    fill: var(--logo__path--1--fill, var(--global-color-neutral-xxxx-dark));
 }
 
 .c-logo__path--2 {
-    fill: var(--global-color-alpha);
+    fill: var(--logo__path--2--fill, var(--global-color-alpha));
 }
 
 .c-logo__path--3 {
-    fill: var(--color-alpha-x-dark);
+    fill: var(--logo__path--3--fill, var(--global-color-alpha-x-dark));
 }
 
 /*
@@ -532,10 +543,10 @@ input::placeholder {
 */
 
 .c-card {
-    background-color: White;
+    background-color: var(--card-background, White);
     margin-bottom: var(--global-whitespace);
     border-radius: var(--global-borderRadius);
-    box-shadow: 0 0 0 var(--global-borderWidth) rgba(0,0,0, 0.05), 0 2px 4px rgba(0,0,0,.075);
+    box-shadow: 0 0 0 var(--global-borderWidth) rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.075);
     overflow: hidden;
 }
 
@@ -547,7 +558,8 @@ input::placeholder {
 
 .c-card__footer {
     text-align: center;
-    border-top: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
+    border-top: var(--global-borderWidth) solid
+        var(--border-top-color, var(--global-color-neutral-xxx-light));
 }
 
 .c-card__title {
@@ -601,26 +613,27 @@ input::placeholder {
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    border: var(--global-borderWidth) solid var(--global-color-neutral-xxx-light);
+    border: var(--global-borderWidth) solid var(--border-top-color, var(--global-input-borderColor));
     border-radius: var(--global-borderRadius);
-    color: var(--global-color-neutral-xxxx-dark);
-    background-color: White;
+    color: var(--global-input-color);
+    background-color: var(--input-backgroundColor, var(--global-input-backgroundColor));
     font-family: inherit;
     font-size: 16px;
     line-height: calc(var(--global-baseline) * 3);
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
+    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth))
+        var(--global-whitespace-md);
     outline: none;
     transition: border var(--global-transition-timing-alpha);
 }
 
 .c-input:hover {
-    border-color: var(--global-color-neutral-xx-light);
+    border-color: var(--global-input-hover-borderColor);
 }
 
 .c-input:focus,
 .c-input:active {
-    border-color: var(--global-color-alpha);
-    box-shadow: 0 0 0 3px var(--global-color-alpha-x-transparent);
+    border-color: var(--global-input-focus-borderColor);
+    box-shadow: 0 0 0 3px var(--global-input-boxShadow);
 }
 
 /* option input for checkboxes and radio buttons */
@@ -638,9 +651,9 @@ input::placeholder {
 .c-label {
     margin-bottom: 0;
     font-size: 14px;
-    padding-bottom: var(--global-whitespace-xs);    
+    padding-bottom: var(--global-whitespace-xs);
     line-height: calc(var(--global-baseline) * 2);
-    color: var(--global-color-neutral-xx-dark);
+    color: var(--label-color, --global-color-neutral-xx-dark);
 }
 
 .c-label--option {
@@ -660,7 +673,8 @@ input::placeholder {
     border: var(--global-borderWidth) solid var(--global-color-alpha-dark);
     background-color: var(--global-color-alpha);
     color: #fff;
-    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth)) var(--global-whitespace-md);
+    padding: calc(var(--global-baseline) * 1.5 - var(--global-borderWidth))
+        var(--global-whitespace-md);
     line-height: calc(var(--global-baseline) * 3);
     width: 100%;
     outline: none;
@@ -679,7 +693,157 @@ input::placeholder {
     background-color: var(--global-color-alpha-dark);
     box-shadow: none;
 }
+/*
+    Component: Custom options
+    ---
+    Class for custom inputs
+*/
+.c-option--hidden:checked + .c-custom-option {
+    /* background-color: red; */
+}
+.c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
+    opacity: 1;
+    transition: var(--global-transitionTiming-alpha);
+}
+/*
+    Component: input options
+    ---
+    Class for inputs
+*/
+.c-option-list {
+    margin-bottom: 24px;
+}
+.c-option-list__item {
+    margin-bottom: 12px;
+}
+.c-custom-option {
+    --custom-option-borderColor: var(--global-input-borderColor);
+    --custom-option-hover-borderColor: var(--global-input-hover-borderColor);
+    --custom-option-focus-borderColor: var(--global-input-focus-borderColor);
+    display: flex;
+}
+.c-custom-option__symbol {
+    opacity: 0;
+    display: block;
+}
+.c-custom-option__fake-input {
+    display: flex;
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--custom-option-borderColor);
+    margin-right: 8px;
+    box-shadow: var(--global-input-color);
+    align-items: center;
+    justify-content: center;
+}
+.c-custom-option__fake-input--checkbox {
+    border-radius: var(--global-borderRadius);
+}
+.c-custom-option__fake-input--radio {
+    border-radius: 100%;
+}
+.c-custom-option__fake-input--checkbox .c-custom-option__symbol {
+    width: 10px;
+    height: 10px;
+    fill: var(--global-color-alpha);
+}
+.c-custom-option__fake-input--radio .c-custom-option__symbol {
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: var(--global-color-alpha);
+}
 
+.c-custom-option:hover {
+    --custom-option-borderColor: var(--custom-option-hover-borderColor);
+    border-color: var(--custom-option-borderColor);
+}
+
+.c-custom-option__fake-input:focus,
+.c-custom-option__fake-input:active {
+    border-color: var(--global-input-focus-borderColor);
+    box-shadow: var(--global-input-boxShadow);
+}
+/*
+    Component: custom toggle
+    ---
+    Class for toggle inputs
+*/
+.c-custom-toggle {
+    display: flex;
+    align-items: center;
+}
+.c-custom-toggle__fake-input {
+    display: block;
+    width: 48px;
+    height: 26px;
+    padding: 1px;
+    margin-right: 8px;
+    border-radius: 12px;
+    border: 1px solid var(--global-input-borderColor);
+    transition: all var(--global-transitionTiming-alpha);
+}
+.c-custom-toggle__fake-input::after {
+    display: block;
+    content: '';
+    width: 22px;
+    height: 22px;
+    border-radius: 100%;
+    background-color: var(--color-toggle-btn, var(--global-color-neutral-xxxx-light));
+    border: 1px solid var(--toggle-border-color, var(--global-input-borderColor));
+    transition: all var(--global-transitionTiming-alpha);
+}
+.c-option--hidden:checked + .c-custom-toggle .c-custom-toggle__fake-input {
+    background-color: var(--global-color-alpha);
+    transition: var(--global-transitionTiming-alpha);
+}
+.c-option--hidden:checked + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    background-color: var(--color-toggle-btn, var(--global-color-neutral-xxxx-light));
+    transform: translateX(22px);
+    transition: var(--global-transitionTiming-alpha);
+}
+.c-custom-toggle:hover {
+    --custom-option-borderColor: var(--custom-option-hover-borderColor);
+    border-color: var(--custom-option-borderColor);
+}
+
+.c-custom-toggle__fake-input:focus,
+.c-custom-toggle__fake-input:active {
+    border-color: var(--global-input-focus-borderColor);
+    box-shadow: var(--global-input-boxShadow);
+}
+.c-option--hidden:active + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    width: 28px;
+}
+.c-option--hidden:checked:active + .c-custom-toggle .c-custom-toggle__fake-input::after {
+    width: 28px;
+    transform: translateX(17px);
+}
+.c-toggle-list__item + .c-toggle-list__item {
+    margin-top: 16px;
+}
+.c-custom-toggle--inverted {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    width: 100%;
+}
+.c-custom-toggle--inverted {
+    margin-right: 0px;
+}
+.c-custom-select {
+    display: block;
+    position: relative;
+}
+
+.c-custom-select__symbol {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    height: 24px;
+    fill: var(--global-color-neutral-light);
+    pointer-events: none;
+}
 /*------------------------------------*\
 #UTILITIES
 \*------------------------------------*/
@@ -695,7 +859,7 @@ input::placeholder {
 }
 
 .u-color-neutral-dark {
-    color: var(--global-color-neutral-dark);
+    color: var(--global-color-neutral-xxx-light, var(--global-color-neutral-dark));
 }
 
 /*
@@ -761,7 +925,6 @@ input::placeholder {
 .u-max-width-none {
     max-width: none !important;
 }
-
 
 /*
     Utilities: align
@@ -988,6 +1151,37 @@ input::placeholder {
 /*------------------------------------*\
 #MEDIA
 \*------------------------------------*/
+@media (prefers-color-scheme: dark) {
+    :root {
+        --global-page-color: white;
+        --global-page-backgroundColor: var(--global-color-neutral-xxxx-dark);
+    }
+    .c-logo {
+        --logo__path--1--fill: White;
+        --logo__path--2--fill: var(--logo__path--1--fill);
+        --logo__path--3--fill: var(--logo__path--1--fill);
+    }
+    .c-card {
+        --card-background: var(--global-color-neutral-xxx-dark);
+    }
+    .c-label {
+        color: var(--global-color-neutral-xxx-light);
+    }
+    .c-card__footer {
+        --border-top-color: var(--global-color-neutral-xx-dark);
+    }
+    .c-input {
+        --input-backgroundColor: var(--global-color-neutral-xx-dark);
+    }
+    .c-custom-select__input {
+        color: var(--global-page-color);
+    }
+    .c-custom-toggle__fake-input,
+    .c-custom-toggle__fake-input::after {
+        --color-toggle-btn: var(--global-color-neutral-xx-dark);
+        --toggle-border-color: var(--global-color-neutral-dark);
+    }
+}
 
 /*
     Media Queries
@@ -1016,7 +1210,6 @@ No media query since this is the default in mobile first design
 /* Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {}
 */
-
 /*
     Print styles.
     ---
@@ -1040,18 +1233,18 @@ No media query since this is the default in mobile first design
         text-decoration: underline;
     }
     a[href]:after {
-        content: " (" attr(href) ")";
+        content: ' (' attr(href) ')';
     }
     abbr[title]:after {
-        content: " (" attr(title) ")";
+        content: ' (' attr(title) ')';
     }
     /*
     * Don't show links that are fragment identifiers,
     * or use the `javascript:` pseudo protocol
     */
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
+    a[href^='#']:after,
+    a[href^='javascript:']:after {
+        content: '';
     }
     pre {
         white-space: pre-wrap !important;
